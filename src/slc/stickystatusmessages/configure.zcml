@@ -1,7 +1,23 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:five="http://namespaces.zope.org/five">
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="slc.stickystatusmessages">
 
-  <five:registerPackage package="." initialize=".zope2.initialize" />
+    <include package=".browser" />
+
+    <genericsetup:registerProfile
+        name="default"
+        title="slc.stickystatusmessages"
+        directory="profiles/default"
+        description="Sticky status messages"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <!-- We need to make the groups annotatable for this to work -->
+    <include package="zope.annotation" />
+    <class class="Products.PlonePAS.tools.groupdata.GroupData">
+        <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+    </class>
 
 </configure>

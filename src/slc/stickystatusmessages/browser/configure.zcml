@@ -1,0 +1,37 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="slc.stickystatusmessages">
+   
+    <browser:viewlet  
+        name="slc.stickystatusmessages"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+        class=".views.StickyStatusMessagesViewlet"
+        permission="zope2.View" 
+        layer="slc.stickystatusmessages.interfaces.IStickyStatusMessagesLayer"
+        />
+
+    <browser:resource
+        file="thirdparty/jquery.bigtarget.1.0.1.js"
+        name="jquery.bigtarget.1.0.1.js"
+        />
+
+    <browser:resource
+        file="javascripts/stickystatusmessages.js"
+        name="stickystatusmessages.js"
+        />
+
+    <browser:resource
+        file="stylesheets/stickystatusmessages.css"
+        name="stickystatusmessages.css"
+        />
+
+    <browser:page
+        for="*"
+        class=".views.StickyStatusMessagesAJAXView"
+        name="StickyStatusMessagesAJAXView"
+        permission="zope2.View"
+        allowed_interface=".interfaces.IAJAXView"
+        /> 
+
+</configure>

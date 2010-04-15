@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+    <layer
+        name="slc.stickystatusmessages"
+        interface="slc.stickystatusmessages.interfaces.IStickyStatusMessagesLayer" />
+</layers>
+
