@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="slc.stickystatusmessages">
@@ -16,8 +17,45 @@
 
     <!-- We need to make the groups annotatable for this to work -->
     <include package="zope.annotation" />
-    <class class="Products.PlonePAS.tools.groupdata.GroupData">
+    <class class="Products.PlonePAS.tools.memberdata.MemberData">
         <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
     </class>
+
+
+    <subscriber 
+        for="Products.Archetypes.interfaces.base.IBaseObject
+             Products.CMFCore.interfaces.IActionSucceededEvent"
+        handler=".events.object_state_changed_event"
+        />
+
+    <subscriber 
+        for="Products.Archetypes.interfaces.base.IBaseObject
+             Products.Archetypes.interfaces.IObjectEditedEvent"
+        handler=".events.object_edited_event"
+        />
+
+    <subscriber 
+        for="Products.Archetypes.interfaces.base.IBaseObject
+             zope.lifecycleevent.interfaces.IObjectCopiedEvent"
+        handler=".events.object_copied_event"
+        />
+
+    <subscriber 
+        for="Products.Archetypes.interfaces.base.IBaseObject
+             OFS.interfaces.IObjectWillBeMovedEvent"
+        handler=".events.object_moved_event"
+        />
+
+    <subscriber 
+        for="Products.Archetypes.interfaces.base.IBaseObject
+             zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+        handler=".events.object_removed_event"
+        />
+
+    <subscriber 
+        for="Products.Archetypes.interfaces.base.IBaseObject
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler=".events.object_created_event"
+        />
 
 </configure>
