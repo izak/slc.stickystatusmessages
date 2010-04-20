@@ -5,25 +5,17 @@
             tal:define="mtype message/type | nothing;"
             tal:attributes="class string:portalMessage ${mtype};"
             tal:condition="message/message | nothing">
-            <dt class="close-box"
-                tal:content="python:'[X] %s' % mtype.capitalize()"
-                tal:define="mid message/timestamp;
-                            gid message/group;"
+            <dt class="stickymessage-status-box "
+                tal:define="mid message/timestamp;"
                 tal:attributes="mid mid;
-                                onclick string:close_sticky_message('${mid}','${gid}');"
-                i18n:translate="">
-                Info
+                                onclick string:close_sticky_message('${mid}');" >
+                <span class="stickymessage-close-cross">
+                    [X]
+                </span>
+                <span tal:replace="python:mtype.capitalize()">Info</span>
             </dt>
-            <dd> 
-                <tal:message content="message/message | nothing" i18n:translate="">
-                    The status message.
-                </tal:message>
-                &nbsp;
-                <a  href="" 
-                    tal:content="message/obj_title" 
-                    tal:attributes="href message/obj_url">
-                    Object Title
-                </a>
+            <dd tal:content="structure message/message | nothing" i18n:translate="">
+                The status message.
             </dd>
         </dl>
     </tal:statusmsg>
