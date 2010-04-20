@@ -17,7 +17,7 @@ def object_copied_event(obj, evt):
                                                     '/'.join(folder.getPhysicalPath()),
                                                     folder.Title())
                 )
-    utils.set_sticky_status_messages(folder, message, 'info')
+    utils.set_sticky_status_message(folder, message)
 
 
 def object_moved_event(obj, evt):
@@ -37,7 +37,7 @@ def object_moved_event(obj, evt):
                                             '/'.join(folder.getPhysicalPath()),
                                             folder.Title())
                 )
-    utils.set_sticky_status_messages(folder, message, 'info')
+    utils.set_sticky_status_message(folder, message)
 
 
 def object_removed_event(obj, evt):
@@ -51,7 +51,7 @@ def object_removed_event(obj, evt):
                                             '/'.join(folder.getPhysicalPath()),
                                             folder.Title())
                 )
-    utils.set_sticky_status_messages(folder, message, 'info')
+    utils.set_sticky_status_message(folder, message)
 
 
 def object_created_event(obj, evt):
@@ -66,7 +66,7 @@ def object_created_event(obj, evt):
                                         '/'.join(folder.getPhysicalPath()),
                                         folder.Title())
                 )
-    utils.set_sticky_status_messages(folder, message, 'info')
+    utils.set_sticky_status_message(folder, message)
 
 
 def object_edited_event(obj, evt):
@@ -81,7 +81,7 @@ def object_edited_event(obj, evt):
                                         '/'.join(folder.getPhysicalPath()),
                                         folder.Title())
                 )
-    utils.set_sticky_status_messages(folder, message, 'info')
+    utils.set_sticky_status_message(folder, message)
 
 
 def object_state_changed_event(obj, evt):
@@ -103,6 +103,6 @@ def object_state_changed_event(obj, evt):
                         state, 
                         )
                 )
-    utils.set_sticky_status_messages(folder, message, 'info')
+    utils.set_sticky_status_message(folder, message)
 
 

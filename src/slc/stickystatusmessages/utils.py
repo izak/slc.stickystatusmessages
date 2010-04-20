@@ -4,8 +4,13 @@ from zope.annotation.interfaces import IAnnotations
 from Products.CMFCore.utils import getToolByName
 from config import SSMKEY
 
-def set_sticky_status_messages(folder, message, type):
-    """ """
+def set_sticky_status_message(folder, message, type='info'):
+    """ folder:  The folder in which the operation occured and on which the
+            sharing roles are defined and which determine who receives the 
+            sticky message.
+        message: The message string
+        type:    The message type string, i.e 'info', 'error' 
+    """
     portal_groups = getToolByName(folder, 'portal_groups')
     groups_and_members = []
     sharing = getMultiAdapter((folder, folder.REQUEST), name='sharing')
@@ -43,11 +48,8 @@ def set_sticky_status_messages(folder, message, type):
         sticky_messages = annotations.get(SSMKEY, {})
         mdict= {
             'type': type,
-            'obj_title': folder.Title(),
-            'obj_url': '/'.join(folder.getPhysicalPath()),
             'message': message,
             'timestamp': timestamp,
-            'member': member.getId(),
             }
         sticky_messages[timestamp] = mdict
         annotations[SSMKEY] = sticky_messages
