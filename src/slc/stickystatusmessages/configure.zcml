@@ -36,13 +36,13 @@
 
     <subscriber 
         for="Products.Archetypes.interfaces.base.IBaseObject
-             zope.lifecycleevent.interfaces.IObjectCopiedEvent"
+             OFS.event.ObjectClonedEvent"
         handler=".events.object_copied_event"
         />
 
     <subscriber 
         for="Products.Archetypes.interfaces.base.IBaseObject
-             OFS.interfaces.IObjectWillBeMovedEvent"
+             zope.lifecycleevent.ObjectMovedEvent"
         handler=".events.object_moved_event"
         />
 

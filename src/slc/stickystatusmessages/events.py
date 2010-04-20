@@ -10,7 +10,7 @@ def object_copied_event(obj, evt):
     log.info('object_copied_event')
     folder = obj.aq_parent
     message = _(
-                '%s <a href="%s">%s</a> copied into <a href="%s">%s</a>' \
+                '%s <a href="%s">%s</a> has been copied into <a href="%s">%s</a>' \
                                                 % ( obj.portal_type, 
                                                     '/'.join(obj.getPhysicalPath()), 
                                                     obj.Title(), 
@@ -22,9 +22,10 @@ def object_copied_event(obj, evt):
 
 def object_moved_event(obj, evt):
     """ """
-    if obj.isTemporary() or \
-            obj.checkCreationFlag() or \
-                evt.oldName != evt.newName:
+    if obj.isTemporary() or not evt.newParent or not evt.oldParent:
+        return
+
+    if 'portal_factory' in evt.oldParent.getPhysicalPath():
         return
 
     log.info('object_moved_event')
