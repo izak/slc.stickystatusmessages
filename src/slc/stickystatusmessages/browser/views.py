@@ -22,21 +22,15 @@ class StickyStatusMessagesViewlet(ViewletBase):
             return []
 
         member = mtool.getAuthenticatedMember()
-        group_names = member.getGroups()
-        msgs_dict = {}
-        for gip in group_names:
-            group = member.getGroupById(gip)
-            annotations = IAnnotations(group)
-            ssm = annotations.get(SSMKEY, {})
-            msgs_dict.update(ssm.get(member.getId(), {}))
-
-        return msgs_dict.values()
+        annotations = IAnnotations(member)
+        ssm = annotations.get(SSMKEY, {})
+        return ssm.values()
 
 
 class StickyStatusMessagesAJAXView(BrowserView):
     implements(IAJAXView)
 
-    def delete_message(self, message_id, group_id):
+    def delete_message(self, message_id):
         """ """
         context = aq_inner(self.context)
         mtool = getToolByName(context, 'portal_membership')
@@ -44,9 +38,9 @@ class StickyStatusMessagesAJAXView(BrowserView):
             return []
 
         member = mtool.getAuthenticatedMember()
-        group = member.getGroupById(group_id)
-        annotations = IAnnotations(group)
+        annotations = IAnnotations(member)
         ssm = annotations.get(SSMKEY, {})
-        msg = ssm.get(member.getId(), {})
-        if msg.has_key(message_id):
-            del msg[message_id]
+        if ssm.has_key(message_id):
+            del ssm[message_id]
+        annotations[SSMKEY] = ssm
+
