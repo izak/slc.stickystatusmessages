@@ -4,29 +4,29 @@ from zope.annotation.interfaces import IAnnotations
 from Products.CMFCore.utils import getToolByName
 from config import SSMKEY
 
-def set_sticky_status_message(folder, message, type='info'):
-    """ folder:  The folder in which the operation occured and on which the
-            sharing roles are defined and which determine who receives the 
+def set_sticky_status_message(obj, message, type='info'):
+    """ obj:  The object on which the operation occured and on which the
+            sharing roles are defined that determine who receives the 
             sticky message.
         message: The message string
         type:    The message type string, i.e 'info', 'error' 
     """
-    portal_groups = getToolByName(folder, 'portal_groups')
+    portal_groups = getToolByName(obj, 'portal_groups')
     groups_and_members = []
-    sharing = getMultiAdapter((folder, folder.REQUEST), name='sharing')
+    sharing = getMultiAdapter((obj, obj.REQUEST), name='sharing')
     for roles_dict in sharing.existing_role_settings():
         if roles_dict['disabled']:
             continue
 
-        if roles_dict['roles']['Editor'] in ['acquired', True]:
+        if roles_dict['roles'].get('Editor') in ['acquired', True]:
             groups_and_members.append(roles_dict['id'])
 
     if not groups_and_members:
         return
 
     # Annotate a sticky message dict to all the groups with local roles on the
-    # folder
-    portal_membership = getToolByName(folder, 'portal_membership')
+    # obj
+    portal_membership = getToolByName(obj, 'portal_membership')
     current_member = portal_membership.getAuthenticatedMember().getId()
     timestamp = datetime.datetime.now().isoformat()
 
