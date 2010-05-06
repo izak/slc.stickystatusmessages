@@ -1,5 +1,5 @@
 function close_sticky_message(mid) {
-    var path = window.location.pathname;
+    var path = window.location.href;
     if (path.indexOf("portal_factory") != -1) {
         path = path.split('/portal_factory')[0];
     }
@@ -15,7 +15,7 @@ function close_sticky_message(mid) {
             message_id: mid,
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert('Error: could not permanently remove the messsage. Please try again later.');
+            alert('Error: could not permanently remove the messsage. Please try again later.'+path);
             jQuery("dt[mid="+mid+"]").parent().fadeOut(500);
         },
         success: function() {
