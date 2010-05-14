@@ -10,12 +10,13 @@ def object_copied_event(obj, evt):
     log.info('object_copied_event')
     folder = obj.aq_parent
     message = _(
-                '%s <a href="%s">%s</a> has been copied into <a href="%s">%s</a>' \
+                u'%s <a href="%s">%s</a> has been copied into <a href="%s">%s</a>' \
                                                 % ( obj.portal_type, 
                                                     '/'.join(obj.getPhysicalPath()), 
-                                                    obj.Title(), 
+                                                    obj.Title().decode('utf-8'), 
                                                     '/'.join(folder.getPhysicalPath()),
-                                                    folder.Title())
+                                                    folder.Title().decode('utf-8'), 
+                                                    )
                 )
     utils.set_sticky_status_message(obj, message)
 
@@ -31,11 +32,12 @@ def object_moved_event(obj, evt):
     log.info('object_moved_event')
     folder = evt.newParent
     message = _(
-                '%s <em>%s</em> moved into <a href="%s">%s</a>' \
+                u'%s <em>%s</em> moved into <a href="%s">%s</a>' \
                                         % ( obj.portal_type, 
-                                            obj.Title(), 
+                                            obj.Title().decode('utf-8'), 
                                             '/'.join(folder.getPhysicalPath()),
-                                            folder.Title())
+                                            folder.Title().decode('utf-8'), 
+                                            )
                 )
     utils.set_sticky_status_message(obj, message)
 
@@ -45,11 +47,12 @@ def object_removed_event(obj, evt):
     log.info('object_removed_event')
     folder = obj.aq_parent
     message = _(
-                '%s <em>%s</em> removed from <a href="%s">%s</a>' \
+                u'%s <em>%s</em> removed from <a href="%s">%s</a>' \
                                         % ( obj.portal_type, 
-                                            obj.Title(), 
+                                            obj.Title().decode('utf-8'), 
                                             '/'.join(folder.getPhysicalPath()),
-                                            folder.Title())
+                                            folder.Title().decode('utf-8'), 
+                                            )
                 )
     utils.set_sticky_status_message(obj, message)
 
@@ -59,12 +62,13 @@ def object_created_event(obj, evt):
     log.info('object_created_event')
     folder = obj.aq_parent
     message = _(    
-                '%s <a href="%s">%s</a> created in <a href="%s">%s</a>' \
+                u'%s <a href="%s">%s</a> created in <a href="%s">%s</a>' \
                                     % ( obj.portal_type, 
                                         '/'.join(obj.getPhysicalPath()), 
-                                        obj.Title(), 
+                                        obj.Title().decode('utf-8'), 
                                         '/'.join(folder.getPhysicalPath()),
-                                        folder.Title())
+                                        folder.Title().decode('utf-8'), 
+                                        )
                 )
     utils.set_sticky_status_message(obj, message)
 
@@ -74,12 +78,13 @@ def object_edited_event(obj, evt):
     log.info('object_edited_event')
     folder = obj.aq_parent
     message = _(
-                '%s <a href="%s">%s</a> edited in <a href="%s">%s</a>' \
+                u'%s <a href="%s">%s</a> edited in <a href="%s">%s</a>' \
                                     % ( obj.portal_type, 
                                         '/'.join(obj.getPhysicalPath()), 
-                                        obj.Title(), 
+                                        obj.Title().decode('utf-8'), 
                                         '/'.join(folder.getPhysicalPath()),
-                                        folder.Title())
+                                        folder.Title().decode('utf-8'), 
+                                        )
                 )
     utils.set_sticky_status_message(obj, message)
 
@@ -93,16 +98,17 @@ def object_state_changed_event(obj, evt):
     status = workflowTool.getStatusOf(chain[0], obj)
     state = status["review_state"]
     message = _(
-                'The workflow state of %s <a href="%s">%s</a> ' \
+                u'The workflow state of %s <a href="%s">%s</a> ' \
                 'in <a href="%s">%s</a> has been changed to <em>%s</em>' \
                     % ( obj.portal_type, 
                         '/'.join(obj.getPhysicalPath()), 
-                        obj.Title(), 
+                        obj.Title().decode('utf-8'), 
                         '/'.join(folder.getPhysicalPath()),
-                        folder.Title(),
+                        folder.Title().decode('utf-8'), 
                         state, 
                         )
                 )
+
     utils.set_sticky_status_message(obj, message)
 
 
