@@ -42,6 +42,9 @@ def set_sticky_status_message(obj, message, type='info'):
         members.remove(current_member)
 
     for mid in members:
+        if mid is None:
+            continue 
+
         member = portal_membership.getMemberById(mid)
         annotations = IAnnotations(member)
         # annotations[SSMKEY] = {}
