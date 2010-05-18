@@ -29,6 +29,21 @@ class StickyStatusMessagesViewlet(ViewletBase):
 
 class StickyStatusMessagesAJAXView(BrowserView):
     implements(IAJAXView)
+    
+
+    def delete_all_messages(self):
+        """ Remove all the currently stored sticky messages by simply
+            replacing the annotations with a new empty dict.
+        """
+        context = aq_inner(self.context)
+        mtool = getToolByName(context, 'portal_membership')
+        if mtool.isAnonymousUser():
+            return []
+
+        member = mtool.getAuthenticatedMember()
+        annotations = IAnnotations(member)
+        annotations[SSMKEY] = {}
+
 
     def delete_message(self, message_id):
         """ """

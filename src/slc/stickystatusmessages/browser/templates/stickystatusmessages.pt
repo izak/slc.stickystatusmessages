@@ -1,22 +1,30 @@
-<div id="status-messages">
-    <tal:statusmsg 
-            tal:repeat="message view/messages">
-        <dl class="portalMessage info"
-            tal:define="mtype message/type | nothing;"
-            tal:attributes="class string:portalMessage ${mtype};"
-            tal:condition="message/message | nothing">
-            <dt class="stickymessage-status-box "
-                tal:define="mid message/timestamp;"
-                tal:attributes="mid mid;
-                                onclick string:close_sticky_message('${mid}');" >
-                <span class="stickymessage-close-cross">
-                    [X]
-                </span>
-                <span tal:replace="python:mtype.capitalize()">Info</span>
-            </dt>
-            <dd tal:content="structure message/message | nothing" i18n:translate="">
-                The status message.
-            </dd>
-        </dl>
-    </tal:statusmsg>
+<div id="sticky-status-messages">
+    <tal:get define="messages view/messages">
+        <tal:if condition="python:len(messages) > 2">
+            Click 
+            <a href="" tal:attributes="onclick string:close_all_sticky_message();" >
+                here
+            </a>
+            to remove all the messages below.
+        </tal:if>
+        <tal:statusmsg tal:repeat="message messages">
+            <dl class="portalMessage info"
+                tal:define="mtype message/type | nothing;"
+                tal:attributes="class string:portalMessage ${mtype};"
+                tal:condition="message/message | nothing">
+                <dt class="stickymessage-status-box "
+                    tal:define="mid message/timestamp;"
+                    tal:attributes="mid mid;
+                                    onclick string:close_sticky_message('${mid}');" >
+                    <span class="stickymessage-close-cross">
+                        [X]
+                    </span>
+                    <span tal:replace="python:mtype.capitalize()">Info</span>
+                </dt>
+                <dd tal:content="structure message/message | nothing" i18n:translate="">
+                    The status message.
+                </dd>
+            </dl>
+        </tal:statusmsg>
+    </tal:get>
 </div>
