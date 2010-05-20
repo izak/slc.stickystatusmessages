@@ -38,7 +38,7 @@ class StickyStatusMessagesAJAXView(BrowserView):
         context = aq_inner(self.context)
         mtool = getToolByName(context, 'portal_membership')
         if mtool.isAnonymousUser():
-            return []
+            return
 
         member = mtool.getAuthenticatedMember()
         annotations = IAnnotations(member)
