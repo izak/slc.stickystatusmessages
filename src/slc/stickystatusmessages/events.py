@@ -58,7 +58,7 @@ def object_removed_event(obj, evt):
                                             )
                 )
     # XXX: Temporary!!!
-    # utils.set_sticky_status_message(obj, message)
+    utils.set_sticky_status_message(obj, message)
 
 
 def object_created_event(obj, evt):
