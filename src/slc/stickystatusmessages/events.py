@@ -57,7 +57,6 @@ def object_removed_event(obj, evt):
                                             folder_title.decode('utf-8'), 
                                             )
                 )
-    # XXX: Temporary!!!
     utils.set_sticky_status_message(obj, message)
 
 
@@ -119,3 +118,21 @@ def object_state_changed_event(obj, evt):
     utils.set_sticky_status_message(obj, message)
 
 
+def object_parent_edited_event(obj, evt):
+    """
+    Notify children when the parent is edited
+    """
+    folder = obj.aq_parent
+    folder_title = folder.Title() or ''
+    obj_title = obj.Title() or ''
+    message = _(
+                u'%s <a href="%s">%s</a> edited in <a href="%s">%s</a>' \
+                                    % ( obj.portal_type, 
+                                        '/'.join(obj.getPhysicalPath()), 
+                                        obj_title.decode('utf-8'), 
+                                        '/'.join(folder.getPhysicalPath()),
+                                        folder_title.decode('utf-8'), 
+                                        )
+                )
+    for child in obj.objectIds():
+        utils.set_sticky_status_message(obj[child], message)
