@@ -4,8 +4,10 @@ Changelog
 0.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- Improved error handling (pilz, jcbrand)
+- Improved handling of non ascii chars (jcbrand)
+- Removed babble dependencies (jcbrand)
+- Allow for people to remove all sticky messages(jcbrand)
 
 0.1a1 (2010-04-20)
 ------------------
