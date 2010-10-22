@@ -10,7 +10,8 @@ user effecting the change.
 In the case of StickyStatusMessages, status messages now also appear to other
 users, who have an interest (or stake) in the same content item. The other
 users who are notified, are the ones with a local 'Editor' role on the object 
-being affected.
+being affected. Since the original editor or owner who did the change by himself
+he personally will NOT get a sticky statusmessage.
 
 They will receive a notification message (very similar to the existing status
 messages) above the portal content, every time a content item (on which they
