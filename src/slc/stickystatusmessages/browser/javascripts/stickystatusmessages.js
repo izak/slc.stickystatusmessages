@@ -12,7 +12,7 @@ function close_sticky_message(mid) {
         cache: false,
         async: false,
         data: {
-            message_id: mid,
+            message_id: mid
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert('Error: could not permanently remove the messsage. Please try again later.'+path);
