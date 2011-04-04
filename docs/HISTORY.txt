@@ -4,7 +4,7 @@ Changelog
 0.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fixed IE javascript bug #2038 (deroiste)
 
 
 0.1 (2010-10-04)
