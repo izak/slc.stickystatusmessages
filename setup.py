@@ -13,7 +13,7 @@ setup(
     classifiers=[
         "Programming Language :: Python",
         ],
-    keywords='statusmessage status sticky',
+    keywords='statusmessage status sticky CMFNotification',
     author='JC Brand, Syslab.com GmbH',
     author_email='brand@syslab.com',
     url='http://plone.org/products/slc.stickystatusmessages',
@@ -25,6 +25,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'Products.CMFPlone',
+        'Products.CMFNotification',
     ],
     entry_points="""
         [z3c.autoinclude.plugin]
