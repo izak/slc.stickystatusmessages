@@ -1,17 +1,15 @@
 Changelog
 =========
 
-0.3 (unreleased)
+0.3 (2011-09-13)
 ----------------
 
-- Nothing changed yet.
-
+- Tested in Plone 4.1 (jcbrand)
 
 0.2 (2011-04-04)
 ----------------
 
 - Fixed IE javascript bug #2038 (deroiste)
-
 
 0.1 (2010-10-04)
 ----------------
