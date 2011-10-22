@@ -31,7 +31,8 @@ try:
                 sticky_messages = annotations.get(SSMKEY, {})
                 mdict= {
                     'type': 'info',
-                    'message': what, # TODO a better message
+                    # TODO a better message
+                    'message': '%s occured on %s' % (what, obj.absolute_url())
                     'timestamp': timestamp,
                     }
                 sticky_messages[timestamp] = mdict
