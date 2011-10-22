@@ -32,7 +32,7 @@ try:
                 mdict= {
                     'type': 'info',
                     # TODO a better message
-                    'message': '%s occured on %s' % (what, obj.absolute_url())
+                    'message': '%s occured on %s' % (what, obj.absolute_url()),
                     'timestamp': timestamp,
                     }
                 sticky_messages[timestamp] = mdict
