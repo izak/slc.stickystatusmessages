@@ -1,6 +1,7 @@
 from datetime import datetime
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
+from slc.stickystatusmessages import StickyStatusMessageFactory as _
 from slc.stickystatusmessages.utils import set_sticky_status_message
 from slc.stickystatusmessages.config import SSMKEY
 
@@ -11,6 +12,11 @@ try:
 
     class StickyStatusNotificationDelivery(object):
         implements(INotificationDelivery)
+
+        @property
+        def description(self):
+            return _(u'sticky_status_notification_delivery_description',
+                       default=u'Notify using status messages')
 
         def notify(self, obj, user, what, label,
                            get_users_extra_bindings,
