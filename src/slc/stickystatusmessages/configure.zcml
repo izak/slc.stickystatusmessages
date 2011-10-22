@@ -58,4 +58,10 @@
         handler=".events.object_created_event"
         />
 
+    <utility
+        zcml:condition="installed Products.CMFNotification"
+        name="slc.stickystatusmessages.notifier"
+        provides="Products.CMFNotification.interfaces.INotificationDelivery"
+        factory=".notification.StickyStatusNotificationDelivery" />
+
 </configure>
