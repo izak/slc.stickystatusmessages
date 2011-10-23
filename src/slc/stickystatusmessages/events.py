@@ -1,10 +1,35 @@
 import logging
 import utils
+from zope.component import queryUtility
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from slc.stickystatusmessages import StickyStatusMessageFactory as _
+from slc.stickystatusmessages.interfaces import IStickyStatusMessagesSettings
 log = logging.getLogger('slc.stickystatusmessages/events.py')
 
+def ifenabled(func):
+    """ This is a decorator to be applied on the event handlers below. It
+        checks if they should be enabled and runs them, otherwise it does
+        nothing. """
+    def wrapper(*args, **kwargs):
+        # TODO read registry here
+        registry = queryUtility(IRegistry)
+        if registry is None:
+            return func(*args, **kwargs)
+        try:
+            settings = registry.forInterface(IStickyStatusMessagesSettings)
+        except KeyError:
+            return func(*args, **kwargs)
+        if settings is None:
+            return func(*args, **kwargs)
+        if settings.rolebased:
+            return func(*args, **kwargs)
 
+    wrapper.__doc__ = func.__doc__
+    return wrapper
+
+
+@ifenabled
 def object_copied_event(obj, evt):
     """ """
     folder = obj.aq_parent
@@ -22,6 +47,7 @@ def object_copied_event(obj, evt):
     utils.set_sticky_status_message(obj, message)
 
 
+@ifenabled
 def object_moved_event(obj, evt):
     """ """
     if obj.isTemporary() or not evt.newParent or not evt.oldParent:
@@ -44,6 +70,7 @@ def object_moved_event(obj, evt):
     utils.set_sticky_status_message(obj, message)
 
 
+@ifenabled
 def object_removed_event(obj, evt):
     """ """
     folder = obj.aq_parent
@@ -60,6 +87,7 @@ def object_removed_event(obj, evt):
     utils.set_sticky_status_message(obj, message)
 
 
+@ifenabled
 def object_created_event(obj, evt):
     """ """
     folder = obj.aq_parent
@@ -77,6 +105,7 @@ def object_created_event(obj, evt):
     utils.set_sticky_status_message(obj, message)
 
 
+@ifenabled
 def object_edited_event(obj, evt):
     """ """
     folder = obj.aq_parent
@@ -94,6 +123,7 @@ def object_edited_event(obj, evt):
     utils.set_sticky_status_message(obj, message)
 
 
+@ifenabled
 def object_state_changed_event(obj, evt):
     """ """
     folder = obj.aq_parent
@@ -118,6 +148,7 @@ def object_state_changed_event(obj, evt):
     utils.set_sticky_status_message(obj, message)
 
 
+@ifenabled
 def object_parent_edited_event(obj, evt):
     """
     Notify children when the parent is edited
