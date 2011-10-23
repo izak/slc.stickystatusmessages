@@ -5,6 +5,7 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="slc.stickystatusmessages">
 
+    <include package="plone.app.registry" />
     <include package=".browser" />
 
     <genericsetup:registerProfile

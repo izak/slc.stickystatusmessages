@@ -5,9 +5,13 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from plone.app.layout.viewlets.common import ViewletBase
+from plone.app.registry.browser.controlpanel import RegistryEditForm
+from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from slc.stickystatusmessages.config import SSMKEY
 from interfaces import IStickyStatusMessagesViewlet
 from interfaces import IAJAXView
+from slc.stickystatusmessages.interfaces import IStickyStatusMessagesSettings
+from slc.stickystatusmessages import StickyStatusMessageFactory as _
 
 class StickyStatusMessagesViewlet(ViewletBase):
     """ """
@@ -59,3 +63,12 @@ class StickyStatusMessagesAJAXView(BrowserView):
             del ssm[message_id]
         annotations[SSMKEY] = ssm
 
+
+class StickyStatusMessagesSettings(RegistryEditForm):
+    schema = IStickyStatusMessagesSettings
+    label = _(u"Sticky Status Message Settings")
+    description = _(u"Use the settings below to configure "
+                    u"slc.stickystatusmessages for this site")
+
+class StickyStatusMessagesControlPanel(ControlPanelFormWrapper):
+    form = StickyStatusMessagesSettings
