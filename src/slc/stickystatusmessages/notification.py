@@ -1,11 +1,22 @@
 from datetime import datetime
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
+from zope.i18n import interpolate
 from slc.stickystatusmessages import StickyStatusMessageFactory as _
 from slc.stickystatusmessages.utils import set_sticky_status_message
 from slc.stickystatusmessages.config import SSMKEY
 
 from Products.CMFCore.utils import getToolByName
+
+_messages = {
+    'item_creation': _('Item <a href="$u">$t</a> has been created'),
+    'item_modification': _('Item <a href="$u">$t</a> has been modified'),
+    'item_removal': _('Item $t has been removed'),
+    'wf_transition': _('Status of <a href="$u">$t</a> has changed, it is now $s'),
+    'member_registration': _('Member $m registered'),
+    'member_modification': _('Member $m was modified'),
+    'discussion_item_creation': _('<a href="$u">Discussion item</a> was created'),
+}
 
 try:
     from Products.CMFNotification.interfaces import INotificationDelivery
@@ -29,10 +40,20 @@ try:
                 timestamp = datetime.now().isoformat()
                 annotations = IAnnotations(member)
                 sticky_messages = annotations.get(SSMKEY, {})
+
+                # Create mapping for interpolation
+                mapping = {
+                    'u': obj.absolute_url(),
+                    't': obj.Title(),
+                    's': mail_template_options['current_state'],
+                    'm': str(mail_template_options.get('member'))
+                }
+
+                msg = interpolate(_messages[what], mapping)
+
                 mdict= {
                     'type': 'info',
-                    # TODO a better message
-                    'message': '%s occured on %s' % (what, obj.absolute_url()),
+                    'message': msg,
                     'timestamp': timestamp,
                     }
                 sticky_messages[timestamp] = mdict
